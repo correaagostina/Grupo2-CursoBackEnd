@@ -11,7 +11,7 @@ Aca podemos ir documentando diferentes temas que nos parezcan importantes, tambi
 
 **2.** En Git BASH tiro el comando:
 
-    *clone https://github.com/correaagostina/Grupo2-CursoBackEnd.git*
+    clone https://github.com/correaagostina/Grupo2-CursoBackEnd.git
 
 ## Rama TEST
 La idea es hacer el desarrollo en sus ramas y vayan haciendo commits ahí. 
