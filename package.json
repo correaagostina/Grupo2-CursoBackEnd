@@ -1,0 +1,19 @@
+{
+  "name": "grupo2-cursobackend",
+  "version": "1.0.0",
+  "description": "Aca podemos ir documentando diferentes temas que nos parezcan importantes, tambien llevar un seguimiento de los ultimos updates hechos.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "path": "^0.12.7"
+  }
+}
