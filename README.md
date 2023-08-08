@@ -17,36 +17,46 @@ Aca podemos ir documentando diferentes temas que nos parezcan importantes, tambi
 La idea es hacer el desarrollo en sus ramas y vayan haciendo commits ahí. 
 Cuando su rama esta apta para pasar a test: 
 
-* Se paran en la rama test: *git checkout test*
+* Se paran en la rama test: 
+
+    git checkout test
 
 * Hacen un *git pull*
 
-* Merge con la rama en la que estuvieron desarrollando: *git merge nombre_de_mi_rama*
+* Merge con la rama en la que estuvieron desarrollando: 
 
-* Push a la rama test: *git push origin test* 
+    git merge nombre_de_mi_rama
 
-* Para seguir desarrollando (si necesitan), no se olviden de hacer: *git checkout nombre_de_mi_rama*
+* Push a la rama test: 
+
+    git push origin test
+
+* Para seguir desarrollando (si necesitan), no se olviden de hacer: 
+    
+    git checkout nombre_de_mi_rama
 
 
 ## Para crear mi rama
 
 **1.** Me paro en la rama main con:
 
-    *git checkout main*
+    git checkout main
 
 **2.** Por las dudas me fijo que mi proyecto este actualizado con el repo:
 
-    *git pull*
+    git pull
 
 **3.** Creo la rama con: 
 
-    *git branch **nombre_de_la_rama***
+    git branch nombre_de_la_rama
 
-**4.** Con *git checkout nombre_de_la_rama* puedo moverme a la rama que cree
+**4.** Puedo moverme a la rama que cree con:
+
+    git checkout nombre_de_la_rama
 
 **5.** Si quiero que la rama se vea en el repo:
 
-    *git push origin nombre_de_la_rama*
+    git push origin nombre_de_la_rama
 
 
 ## Actualizaciones
