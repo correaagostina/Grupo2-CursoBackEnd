@@ -7,9 +7,9 @@ Aca podemos ir documentando diferentes temas que nos parezcan importantes, tambi
 
 ### Si tengo Windows
 
-1. Voy a la carpeta donde quiero que este el proyecto, click derecho y selecciono "Git BASH here".
+**1.** Voy a la carpeta donde quiero que este el proyecto, click derecho y selecciono "Git BASH here".
 
-2. En Git BASH tiro el comando:
+**2.** En Git BASH tiro el comando:
 
     *clone https://github.com/correaagostina/Grupo2-CursoBackEnd.git*
 
@@ -30,21 +30,21 @@ Cuando su rama esta apta para pasar a test:
 
 ## Para crear mi rama
 
-1. Me paro en la rama main con:
+**1.** Me paro en la rama main con:
 
     *git checkout main*
 
-2. Por las dudas me fijo que mi proyecto este actualizado con el repo:
+**2.** Por las dudas me fijo que mi proyecto este actualizado con el repo:
 
     *git pull*
 
-3. Creo la rama con: 
+**3.** Creo la rama con: 
 
     *git branch **nombre_de_la_rama***
 
-4. Con *git checkout nombre_de_la_rama* puedo moverme a la rama que cree
+**4.** Con *git checkout nombre_de_la_rama* puedo moverme a la rama que cree
 
-5. Si quiero que la rama se vea en el repo:
+**5.** Si quiero que la rama se vea en el repo:
 
     *git push origin nombre_de_la_rama*
 
@@ -54,4 +54,4 @@ Aca podemos ir subiendo cambios que vayamos haciendo
 
 * 3/8 Creación del repo
 
-* 5/8 Creación del .gitignore
+* 5/8 Creación del .gitignore y rama TEST
