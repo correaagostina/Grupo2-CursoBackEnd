@@ -1,4 +1,4 @@
-exports.peliculas = [
+module.exports = [
 { codigo: 1, 
     titulo: 'Misantropo', 
     reparto: ['Shailene Woodley','Ben Mendelsohn', 'Ralph Ineson'], 
