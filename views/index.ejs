@@ -1,4 +1,11 @@
 <%- include('./head') %>
-<h1><%= title %></h1>
-<p><%= message %></p>
+<h1><Peliculas></h1>
+<table>
+    <% for(var i=0; i < peliculas.length; i++) { %>
+       <tr>
+         <td><%= peliculas[i].titulo %></td>
+         <td><%= peliculas[i].categoria %></td>
+       </tr>
+    <% } %>
+    </table>
 <%- include('./footer') %>

@@ -1,4 +1,9 @@
+//Crea un endpoint llamado /trailer/:id que retorne la URL del trailer de la película o serie. Si ésta no posee video asociado, 
+//que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
+
 //estas son diferentes app ejecutandose en diferentes indexs
+const productos = require('./peliculas');
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -10,12 +15,7 @@ app.set('view engine','ejs');
 
 //Definir ruta basica
 app.get('/',(req, res) =>{
-    //res.writeHead(200,{'Contect-type':'text/html'});
-    const data = {
-        title: "Sitio web",
-        message: "Esto es una prueba para ver el message.",
-    };
-    res.render('index', data);
+    res.render('index', productos);
 });
 
 app.get('/cursos',(req, res) => {
