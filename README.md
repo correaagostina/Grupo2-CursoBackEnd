@@ -58,6 +58,24 @@ Cuando su rama esta apta para pasar a test:
 
     git push origin nombre_de_la_rama
 
+## Bajar contenido de rama MAIN a mi rama
+
+Antes que nada si tengo cambios hechos en mi rama sin commitear hacer lo siguiente, si no ir directamente al paso 1:
+
+* git add .
+
+* git commit -m "pongo un mensaje que explique el cambio hecho"
+
+* Sigo con paso 1
+
+**1.** Me paro en mi rama
+
+    git checkout nombre_de_mi_rama
+
+**2.** Me bajo los cambios de la rama main
+
+    git pull origin main
+
 
 ## Actualizaciones
 Aca podemos ir subiendo cambios que vayamos haciendo
