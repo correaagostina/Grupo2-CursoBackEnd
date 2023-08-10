@@ -16,7 +16,10 @@ app.set('view engine','ejs');
 
 //Definir ruta basica
 app.get('/',(req, res) =>{
-    res.render('index', peliculas);
+    mensaje = {
+        titulo: "Ruta raiz."
+    }
+    res.render('index', mensaje);
 });
 
 app.get('/cursos',(req, res) => {
