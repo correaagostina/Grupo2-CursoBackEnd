@@ -2,7 +2,7 @@
 //que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
 
 //estas son diferentes app ejecutandose en diferentes indexs
-const productos = require('./peliculas');
+const peliculas = require('./peliculas');
 
 const express = require('express');
 const app = express();
@@ -15,7 +15,7 @@ app.set('view engine','ejs');
 
 //Definir ruta basica
 app.get('/',(req, res) =>{
-    res.render('index', productos);
+    res.render('index', peliculas);
 });
 
 app.get('/cursos',(req, res) => {
