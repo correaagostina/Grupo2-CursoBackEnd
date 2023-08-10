@@ -1,4 +1,4 @@
-exports.peliculas = [
+module.exports = [
 { codigo: 1, 
     titulo: 'Misantropo', 
     reparto: ['Shailene Woodley','Ben Mendelsohn', 'Ralph Ineson'], 
@@ -40,5 +40,5 @@ exports.peliculas = [
     categoria: 'Accion', 
     genero: 'Fantasia', 
     sinopsis: 'Flash viaja a través del tiempo para evitar el asesinato de su madre, pero, sin saberlo, provoca una serie de cambios que originan la creación de un multiverso.', 
-    trailer: 'https://www.youtube.com/watch?v=Dg0KNwCXdd0'}];
+    trailer: 'https://www.youtube.com/watch?v=Dg0KNwCXdd0'}]
 

@@ -2,9 +2,10 @@
 //que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
 
 //estas son diferentes app ejecutandose en diferentes indexs
-const productos = require('./peliculas');
+
 
 const express = require('express');
+const peliculas = require('./peliculas');
 const app = express();
 const path = require('path');
 //const logger = require('morgan'); 
@@ -15,15 +16,32 @@ app.set('view engine','ejs');
 
 //Definir ruta basica
 app.get('/',(req, res) =>{
-    res.render('index', productos);
+    res.render('index', peliculas);
 });
 
 app.get('/cursos',(req, res) => {
     res.send('<h1>Bienvenidas a nuestra seccion cursos!</h1>');
 })
 
-app.get('/contacto',(req, res) => {
-    res.send('<h1>Aqui puede ver nuestros datos de contacto...</h1>');
+app.get('/trailer/:id',(req, res) => {
+    console.log('Entra');
+    let id = parseInt(req.params.id);
+    if (typeof id === 'number') {
+        let found = peliculas.find(element => element.codigo = id).trailer;
+        console.log(found);
+        if(found.trailer =! null){
+            res.send('<h1>'+found+'</h1>');
+        }
+        //found = peliculas.prototype.find(({ codigo }) => codigo === id).trailer;
+        else{
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).send("Lo siento, pero el link no esta disponible."); 
+        }
+
+    }else{
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send("La busqueda es erronea."); 
+    }  
 })
 
 app.get('*',(req, res) => {
