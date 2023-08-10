@@ -65,3 +65,5 @@ Aca podemos ir subiendo cambios que vayamos haciendo
 * 3/8 Creación del repo
 
 * 5/8 Creación del .gitignore y rama TEST
+
+* 10/8 Proyecto base 
