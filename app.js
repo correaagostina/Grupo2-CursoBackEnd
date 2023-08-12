@@ -14,22 +14,32 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 //Definir ruta basica
-app.get('/',(req, res) =>{
-    mensaje = {
-        titulo: "Ruta raiz."
-    }
-    res.render('index', mensaje);
+app.get("/", (req, res) => {
+  mensaje = {
+    titulo: "Ruta raiz.",
+  };
+  res.render("index", mensaje);
 });
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
 // indicado por el nombre. (la búsqueda del nombre debe ser parcial)
 
 app.get("/reparto/:act", (req, res) => {
-  console.log(typeof(peliculas));
+  console.log(typeof peliculas);
   console.log(req.params);
   let actIngresado = req.params.act.trim().toLowerCase();
   const actorEstaEnPelicula = (actor, pelicula) => {
-    pelicula.reparto.map((actor) => actor.trim().toLowerCase()).includes(actor);
+    // Lista de actores que le saco los espacios de más y los pongo en minúscula.
+    const actoresEnMinuscula = pelicula.reparto.map((actor) =>
+      actor.trim().toLowerCase()
+    );
+    console.log("esto es actoresEnMinuscula", actoresEnMinuscula)
+    // Para cada elemento lo que debo hacer es fijarme si contiene el string que yo estoy buscando.
+    // El mismo va a ir por cada elemento del array para comparar si contiene ese string.
+    // (Esto es porque reparto es un array de strings, por lo tanto debo comparar uno por uno).
+    return actoresEnMinuscula.some((x) => {
+      x.includes(actor);
+    });
   };
   const filtrarCatalogo = peliculas.filter((pelicula) =>
     actorEstaEnPelicula(actIngresado, pelicula)
