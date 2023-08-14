@@ -23,28 +23,39 @@ app.get("/", (req, res) => {
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
 // indicado por el nombre. (la búsqueda del nombre debe ser parcial)
-
 app.get("/reparto/:act", (req, res) => {
   console.log(typeof peliculas);
   console.log(req.params);
-  let actIngresado = req.params.act.trim().toLowerCase();
+  // El valor ingresado lo paso a minúscula y le quito sus espacios.
+  let actorIngresado = req.params.act.trim().toLowerCase();
   const actorEstaEnPelicula = (actor, pelicula) => {
-    // Lista de actores que le saco los espacios de más y los pongo en minúscula.
+    // A la lista de reparto que le saco los espacios de más y los pongo en minúscula para luego poder compararlo con el valor ingresado.
     const actoresEnMinuscula = pelicula.reparto.map((actor) =>
       actor.trim().toLowerCase()
     );
-    console.log("esto es actoresEnMinuscula", actoresEnMinuscula)
-    // Para cada elemento lo que debo hacer es fijarme si contiene el string que yo estoy buscando.
-    // El mismo va a ir por cada elemento del array para comparar si contiene ese string.
-    // (Esto es porque reparto es un array de strings, por lo tanto debo comparar uno por uno).
-    return actoresEnMinuscula.some((x) => {
-      x.includes(actor);
+    console.log("esto es actoresEnMinuscula", actoresEnMinuscula);
+    // El some comprueba si al menos un elemento del array (actoresEnMinuscula) cumple con la condición.
+    // Es decir, va a ir por cada elemento del array para comparar si contiene ese string. (devuelve un booleano)
+    // Una vez que cumple la condición, dará true, y comparo ese string con el ingresado, permitiendo así una búsqueda parcial.
+    return actoresEnMinuscula.some((incluyeActor) => {
+      return incluyeActor.includes(actor);
     });
   };
-  const filtrarCatalogo = peliculas.filter((pelicula) =>
-    actorEstaEnPelicula(actIngresado, pelicula)
-  );
-  res.json(filtrarCatalogo);
+  // Utilizo el filter para filtrar ahora por ese string y busco si está o no en el catalógo por cada película.
+  // A la función entonces de actorEstaEnPelicula le paso los 2 parametros, el actorIngresado y la pelicula.
+  const filtrarCatalogo = peliculas.filter((pelicula) => {
+    let result = actorEstaEnPelicula(actorIngresado, pelicula);
+    return result;
+  });
+
+  // Luego utilizo el map para sólo devolver el titulo de la pelicula dónde aparece ese actor y el reparto de la misma.
+  const devolverTitulo = filtrarCatalogo.map((pelicula) => {
+    return {
+      titulo: pelicula.titulo,
+      reparto: pelicula.reparto,
+    };
+  });
+  res.json(devolverTitulo);
   console.log(filtrarCatalogo, "qué viene de Catalogo x búsqueda x reparto");
 });
 
