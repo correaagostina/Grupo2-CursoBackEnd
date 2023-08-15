@@ -1,10 +1,5 @@
-//Crea un endpoint llamado /trailer/:id que retorne la URL del trailer de la película o serie. Si ésta no posee video asociado,
-//que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
-
-//estas son diferentes app ejecutandose en diferentes indexs
-const peliculas = require("./peliculas");
-
-const express = require("express");
+const express = require('express');
+const peliculas = require('./peliculas');
 const app = express();
 const path = require("path");
 //const logger = require('morgan');
@@ -58,6 +53,19 @@ app.get("/reparto/:act", (req, res) => {
   res.json(devolverTitulo);
   console.log(filtrarCatalogo, "qué viene de Catalogo x búsqueda x reparto");
 });
+
+app.get('/trailer/:id',(req, res) => {
+    let codigo = parseInt(req.params.id);
+
+    if (typeof codigo === 'number') {
+        const found = peliculas.find(element => element.codigo == codigo);
+
+        found?.trailer ? res.send('ID:'+found.codigo+' Titulo: '+found.titulo+' Link al trailer:'+found.trailer):
+        res.status(404).json({ id: 'Error', descripcion: 'El trailer de la pelicula con id = '+codigo+' no se encuentra disponible' });
+        
+    }
+    
+})
 
 app.get("*", (req, res) => {
   res.json({

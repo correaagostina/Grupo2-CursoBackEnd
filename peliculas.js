@@ -19,7 +19,7 @@ module.exports = [
     categoria: 'Terror', 
     genero: 'Terror', 
     sinopsis: 'En un edificio de apartamentos de Los Ángeles, dos hermanas luchan contra los demonios sedientos de sangre que han salido de un libro antiguo.', 
-    trailer: 'https://www.youtube.com/watch?v=vwewz36Z6kU'},
+    },
 {   codigo: 4, 
     titulo: 'A la deriva', 
     reparto: ['Shailene Woodley', 'Sam Claflin', 'Tami Oldham Ashcraft', 'Grace Palmer'], 
@@ -39,7 +39,6 @@ module.exports = [
     reparto: ['Ezra Miller', 'Michael Keaton', 'Ben Affleck', 'Sasha Calle', 'Kiersey Clemons'], 
     categoria: 'Accion', 
     genero: 'Fantasia', 
-    sinopsis: 'Flash viaja a través del tiempo para evitar el asesinato de su madre, pero, sin saberlo, provoca una serie de cambios que originan la creación de un multiverso.', 
-    trailer: 'https://www.youtube.com/watch?v=Dg0KNwCXdd0'}];
+    sinopsis: 'Flash viaja a través del tiempo para evitar el asesinato de su madre, pero, sin saberlo, provoca una serie de cambios que originan la creación de un multiverso.'}]
 
 
