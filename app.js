@@ -22,29 +22,17 @@ app.get('/',(req, res) =>{
     res.render('index', mensaje);
 });
 
-app.get('/cursos',(req, res) => {
-    res.send('<h1>Bienvenidas a nuestra seccion cursos!</h1>');
-})
-
 app.get('/trailer/:id',(req, res) => {
-    console.log('Entra');
-    let id = parseInt(req.params.id);
-    if (typeof id === 'number') {
-        let found = peliculas.find(element => element.codigo = id).trailer;
-        console.log(found);
-        if(found.trailer =! null){
-            res.send('<h1>'+found+'</h1>');
-        }
-        //found = peliculas.prototype.find(({ codigo }) => codigo === id).trailer;
-        else{
-            res.setHeader('Content-Type', 'application/json');
-            res.status(404).send("Lo siento, pero el link no esta disponible."); 
-        }
+    let codigo = parseInt(req.params.id);
 
-    }else{
-        res.setHeader('Content-Type', 'application/json');
-        res.status(404).send("La busqueda es erronea."); 
-    }  
+    if (typeof codigo === 'number') {
+        const found = peliculas.find(element => element.codigo == codigo);
+
+        found?.trailer ? res.send('ID:'+found.codigo+' Titulo: '+found.titulo+' Link al trailer:'+found.trailer):
+        res.status(404).json({ id: 'Error', descripcion: 'El trailer de la pelicula con id = '+codigo+' no se encuentra disponible' });
+        
+    }
+    
 })
 
 app.get('*',(req, res) => {
