@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
-const categorias = require('./peliculas');
+const categorias = require('./src/database/trailerflix.json');
 //const peliculas = require('./peliculas');
 const app = express();
 const path = require("path");
@@ -39,22 +39,15 @@ app.get("/", (req, res) => {
 });
 
 // 3. Crea un endpoint llamado /categoria/:cat que liste todo el contenido del archivo JSON de acuerdo
-// a la categoría enviada como parámetro (serie o película)
+// a la categoría enviada como parámetro (serie o película) - usando filter
 
 app.get("/categoria/:cat", (req, res) => {
-  let parametro = req.params.cat.trim().toLowerCase();
-  console.log(parametro)
-  if(parametro !== "") {
-    let resultado = [];
-    for(let categoria = categorias) {
-      if(categoria.cat.toLowerCase() === parametro) {
-        resultado.push(categoria)
-      }
-    }
-    resultado.length > 0 ?
-  res.json(resultado) :
-  res.json([{id: 'Error', descripcion: 'No se encontraron coincidensias.'}]);
-  }
+  const filtrarPelicula = categorias.filter(filtroCat => filtroCat.cat === "Pelicula")
+  const filtrarSerie = categorias.filter(filtroCat => filtroCat.cat === "Serie")
+  console.json(filtrarPelicula)
+  console.log("largo  del array de pelicula", filtrarPelicula.length)
+  console.json(filtrarSerie)
+  console.log("largo  del array de serie", friltrarSerie.length)
 });
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
