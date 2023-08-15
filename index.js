@@ -2,8 +2,8 @@
 const app = require('./app');
 
 async function main (){
-    await app.listen(app.get('port'));
-    console.log('Server on port', app.get('port'));
+    await app.listen(process.env.PORT);
+    console.log('Server on port', process.env.PORT);
 }
 
 main();
