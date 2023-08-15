@@ -1,9 +1,3 @@
-//Crea un endpoint llamado /trailer/:id que retorne la URL del trailer de la película o serie. Si ésta no posee video asociado, 
-//que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
-
-//estas son diferentes app ejecutandose en diferentes indexs
-
-
 const express = require('express');
 const peliculas = require('./peliculas');
 const app = express();
