@@ -1,0 +1,12 @@
+<%- include('./head') %>
+<h1>Catalogo</h1>
+<%= for (var i =1; i <=10;  i++ ){ %>
+    <h3><%= i.titulo %></h3>
+    <p><%= i.categoria %></p>
+    <p><%= i.tags %></p>
+    <p><%= i.genero %></p>
+    <p><%= i.resumen %></p>
+    <p><%= i.temporadas %></p>
+    <p><%= i.reparto %></p>
+<%= }%>
+<%- include('./footer') %>
