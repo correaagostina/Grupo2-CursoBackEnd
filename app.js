@@ -31,11 +31,14 @@ app.use((req, res, next) => {
 
 //Definir ruta basica
 app.get("/", (req, res) => {
-  /*mensaje = {
-    titulo: "Ruta raiz.",
-  };
-  res.render("index", mensaje);*/
-  res.send(peliculas);
+  mensaje = {
+    titulo: "Somos el grupo 2"
+  }
+  res.render("index", mensaje);
+});
+
+app.get("/catalogo", (req, res) => {
+  res.render("catalogo", {peliculas:peliculas});
 });
 
 // 3. Crea un endpoint llamado /categoria/:cat que liste todo el contenido del archivo JSON de acuerdo

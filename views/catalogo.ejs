@@ -1,0 +1,12 @@
+<%- include('./head') %>
+<h1>Catalogo</h1>
+<%peliculas.forEach(function(item,index){ %>
+    <h3><%= item.titulo %></h3>
+    <p><h4>Categoria: </h4><%= item.categoria %></p>
+    <p><h4>Tags: </h4><%= item.tags %></p>
+    <p><h4>Género: </h4><%= item.genero %></p>
+    <p><h4>Resumen: </h4><%= item.resumen %></p>
+    <p><h4>Temporadas: </h4><%= item.temporadas %></p>
+    <p><h4>Reparto: </h4><%= item.reparto %></p><br>
+<% })%>
+<%- include('./footer') %>

@@ -84,4 +84,6 @@ Aca podemos ir subiendo cambios que vayamos haciendo
 
 * 5/8 Creación del .gitignore y rama TEST
 
-* 10/8 Proyecto base 
+* 10/8 Proyecto base
+
+* 15/8 Carpeta Database con JSON y endpoints /reparto/:act y /trailers/:id
