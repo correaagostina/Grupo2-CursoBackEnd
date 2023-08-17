@@ -31,14 +31,13 @@ app.use((req, res, next) => {
 //Definir ruta basica
 app.get("/", (req, res) => {
   mensaje = {
-    titulo: "Somos el grupo 2",
-    imagen: "/images/feliz.png"
+    titulo: "Somos el grupo 2"
   }
   res.render("index", mensaje);
 });
 
 app.get("/catalogo", (req, res) => {
-  res.render("catalogo", peliculas);
+  res.render("catalogo", {peliculas:peliculas});
 });
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
