@@ -43,8 +43,14 @@ app.get("/", (req, res) => {
 
 app.get('/categoria/:cat', (req, res) => {
   const categ = req.params.cat.trim().toLowerCase()
+
   let filtrarCateg = peliculas.filter(cate => cate.categoria.toLowerCase() === categ)
+
+  if(categ === "película" || categ === "serie") {
   res.json(filtrarCateg);
+  } else {
+    res.status(404).json({id: 'Error', descripcion: 'No se encontraron coincidencias.'});
+  }
 });
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
