@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
+
 const {
   leerPeliculas,
   guardarPeliculas,
@@ -30,11 +31,29 @@ app.use((req, res, next) => {
 
 //Definir ruta basica
 app.get("/", (req, res) => {
-  /*mensaje = {
-    titulo: "Ruta raiz.",
-  };
-  res.render("index", mensaje);*/
-  res.send(peliculas);
+  mensaje = {
+    titulo: "Somos el grupo 2"
+  }
+  res.render("index", mensaje);
+});
+
+app.get("/catalogo", (req, res) => {
+  res.render("catalogo", {peliculas:peliculas});
+});
+
+// 3. Crea un endpoint llamado /categoria/:cat que liste todo el contenido del archivo JSON de acuerdo
+// a la categoría enviada como parámetro (serie o película) - usando filter
+
+app.get('/categoria/:cat', (req, res) => {
+  const categ = req.params.cat.trim().toLowerCase()
+
+  let filtrarCateg = peliculas.filter(cate => cate.categoria.toLowerCase() === categ)
+
+  if(categ === "película" || categ === "serie") {
+  res.json(filtrarCateg);
+  } else {
+    res.status(404).json({id: 'Error', descripcion: 'No se encontraron coincidencias.'});
+  }
 });
 
 app.get("/titulo/:title", (req, res) => {
