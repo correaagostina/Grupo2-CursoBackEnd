@@ -37,6 +37,13 @@ app.get("/", (req, res) => {
   res.send(peliculas);
 });
 
+app.get("/titulo/:title", (req, res) => {
+  let tituloIngresado = req.params.title.trim().toLowerCase()
+  let filtrarTitulo = peliculas.filter(t => t.titulo.toLowerCase() === tituloIngresado)
+  res.json(filtrarTitulo);
+  console.log(tituloIngresado)
+})
+
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
 // indicado por el nombre. (la búsqueda del nombre debe ser parcial)
 app.get("/reparto/:act", (req, res) => {
