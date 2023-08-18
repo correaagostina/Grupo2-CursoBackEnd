@@ -41,6 +41,13 @@ app.get("/catalogo", (req, res) => {
   res.render("catalogo", {peliculas:peliculas});
 });
 
+app.get("/titulo/:title", (req, res) => {
+  let tituloIngresado = req.params.title.trim().toLowerCase().toUpperCase()
+  const filtrarTitulo = peliculas.filter(t => t.titulo.toLowerCase().toUpperCase().includes(tituloIngresado))
+  res.json(filtrarTitulo);
+  console.log(tituloIngresado)
+})
+
 // 3. Crea un endpoint llamado /categoria/:cat que liste todo el contenido del archivo JSON de acuerdo
 // a la categoría enviada como parámetro (serie o película) - usando filter
 
@@ -56,12 +63,7 @@ app.get('/categoria/:cat', (req, res) => {
   }
 });
 
-app.get("/titulo/:title", (req, res) => {
-  let tituloIngresado = req.params.title.trim().toLowerCase()
-  let filtrarTitulo = peliculas.filter(t => t.titulo.toLowerCase() === tituloIngresado)
-  res.json(filtrarTitulo);
-  console.log(tituloIngresado)
-})
+
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
 // indicado por el nombre. (la búsqueda del nombre debe ser parcial)
