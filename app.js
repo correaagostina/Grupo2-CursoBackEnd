@@ -31,41 +31,47 @@ app.use((req, res, next) => {
 
 // Removedor de acentos y tildes
 const removeAccents = (str) => {
-return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
 
 //Definir ruta basica
 app.get("/", (req, res) => {
   mensaje = {
-    titulo: "Somos el grupo 2"
-  }
+    titulo: "Somos el grupo 2",
+  };
   res.render("index", mensaje);
 });
 
 app.get("/catalogo", (req, res) => {
-  res.render("catalogo", {peliculas:peliculas});
+  res.render("catalogo", { peliculas: peliculas });
 });
 
 app.get("/titulo/:title", (req, res) => {
-  let tituloIngresado = req.params.title.trim().toLowerCase().toUpperCase()
-  const filtrarTitulo = peliculas.filter(t => t.titulo.toLowerCase().toUpperCase().includes(tituloIngresado))
+  let tituloIngresado = req.params.title.trim().toLowerCase().toUpperCase();
+  const filtrarTitulo = peliculas.filter((t) =>
+    t.titulo.toLowerCase().toUpperCase().includes(tituloIngresado)
+  );
   res.json(filtrarTitulo);
-  console.log(tituloIngresado)
-})
+  console.log(tituloIngresado);
+});
 
 // 3. Crea un endpoint llamado /categoria/:cat que liste todo el contenido del archivo JSON de acuerdo
 // a la categoría enviada como parámetro (serie o película) - usando filter
 
-app.get('/categoria/:cat', (req, res) => {
-  const categ = req.params.cat.trim().toLowerCase()
+app.get("/categoria/:cat", (req, res) => {
+  const categ = req.params.cat.trim().toLowerCase();
   const categoriaLimpia = removeAccents(categ);
 
-  let filtrarCateg = peliculas.filter(cate => removeAccents(cate.categoria.toLowerCase()) === categoriaLimpia);
+  let filtrarCateg = peliculas.filter(
+    (cate) => removeAccents(cate.categoria.toLowerCase()) === categoriaLimpia
+  );
 
-  if(categ === "serie" || categ === "película" || categ === "pelicula") {
-  res.json(filtrarCateg);
+  if (categ === "serie" || categ === "película" || categ === "pelicula") {
+    res.json(filtrarCateg);
   } else {
-    res.status(404).json({id: 'Error', descripcion: 'No se encontraron coincidencias.'});
+    res
+      .status(404)
+      .json({ id: "Error", descripcion: "No se encontraron coincidencias." });
   }
 });
 
@@ -86,14 +92,20 @@ app.get("/reparto/:act", (req, res) => {
     let result = actorEstaEnPelicula(actorIngresado, pelicula);
     return result;
   });
-  // Luego utilizo el map para sólo devolver el titulo de la pelicula dónde aparece ese actor y el reparto de la misma.
+  // Luego utilizo el map para sólo devolver el titulo y el reparto de la pelicula dónde aparece ese actor y el reparto de la misma.
   const devolverTitulo = filtrarCatalogo.map((pelicula) => {
     return {
       titulo: pelicula.titulo,
       reparto: pelicula.reparto,
     };
   });
-  res.json(devolverTitulo);
+  if (devolverTitulo.length == 0) {
+    res
+      .status(404)
+      .json({ id: "Error", descripcion: "No se encontraron coincidencias." });
+  } else {
+    res.json(devolverTitulo);
+  }
 });
 
 app.get("/trailer/:id", (req, res) => {
