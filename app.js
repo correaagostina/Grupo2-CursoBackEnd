@@ -23,11 +23,16 @@ dotenv.config();
 //Activamos bodyParser para que interprete en formato json
 app.use(bodyParser.json());
 
-//Middleware para guardar en la variable peliculas el contenido el trailerflix.json
+//Middleware para guardar en la variable peliculas el contenido de trailerflix.json
 app.use((req, res, next) => {
   peliculas = leerPeliculas();
   next();
 });
+
+// Removedor de acentos y tildes
+const removeAccents = (str) => {
+return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
 //Definir ruta basica
 app.get("/", (req, res) => {
@@ -53,17 +58,16 @@ app.get("/titulo/:title", (req, res) => {
 
 app.get('/categoria/:cat', (req, res) => {
   const categ = req.params.cat.trim().toLowerCase()
+  const categoriaLimpia = removeAccents(categ);
 
-  let filtrarCateg = peliculas.filter(cate => cate.categoria.toLowerCase() === categ)
+  let filtrarCateg = peliculas.filter(cate => removeAccents(cate.categoria.toLowerCase()) === categoriaLimpia);
 
-  if(categ === "película" || categ === "serie") {
+  if(categ === "serie" || categ === "película" || categ === "pelicula") {
   res.json(filtrarCateg);
   } else {
     res.status(404).json({id: 'Error', descripcion: 'No se encontraron coincidencias.'});
   }
 });
-
-
 
 // 4. Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o actor
 // indicado por el nombre. (la búsqueda del nombre debe ser parcial)
