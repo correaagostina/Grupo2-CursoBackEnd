@@ -6,8 +6,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const {
-  leerPeliculas,
-  guardarPeliculas,
+  leerPeliculas
 } = require("./src/trailerflix.manager");
 //const logger = require('morgan');
 
