@@ -29,8 +29,8 @@ app.get('/frutas', async (req, res) => {
         res.status(500).send('Error al conectarse a MongoDB.')
         return;
     }
-    const db = client.db('Frutas')
-    const Frutas = await db.collection('Frutas').find().toArray()
+    const db = client.db('Grupo2')
+    const computacion = await db.collection('computacion').find().toArray()
     await disconnectToMongodb()
     res.json(Frutas)
 });
@@ -42,8 +42,8 @@ app.get('/frutas/:id', async (req, res) => {
         res.status(500).send('Error al conectarse a MongoDB.')
         return;
     }
-    const db = client.db('Frutas')
-    const Fruta = await db.collection('Frutas').findOne({id: frutasID})
+    const db = client.db('Grupo2')
+    const Fruta = await db.collection('computacion').findOne({id: frutasID})
     await disconnectToMongodb()
     !Fruta ? res.status(404).send('No se encontro la fruta con el id: ' + frutasID) : res.json(Fruta)
 });
