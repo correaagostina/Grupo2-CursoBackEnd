@@ -56,7 +56,7 @@ app.get("/computacion/nombre/:nombre", async (req, res) => {
   computacion.length == 0
     ? res
         .status(404)
-        .send("No se encontró el producto con el nombre " + nombreProductoCompu)
+        .send("No sé ha podido encontrar el producto con nombre " + nombreProductoCompu)
     : res.json(computacion);
 });
 
@@ -70,7 +70,7 @@ app.put("/computacion/:id", async (req, res) => {});
 app.delete("/computacion/:id", async (req, res) => {
   const id = req.params.id;
   if (!id) {
-    res.status(400).send("Error en el formato del id recibido");
+    res.status(400).send("Error en el formato del id");
   }
   const client = await conectToMongodb();
   if (!client) {
@@ -86,15 +86,15 @@ app.delete("/computacion/:id", async (req, res) => {
     .then((resultado) => {
       console.log("consologear el resultado", resultado);
       if (resultado.deletedCount === 0) {
-        res.status(404).send("No se pudo encontrar el producto con id: " + id);
+        res.status(404).send("No sé ha podido encontrar el producto con id: " + id);
       } else {
-        console.log("Producto con el id " + id + " Eliminado");
-        res.status(204).send("Producto con el id " + id + " Eliminado");
+        console.log("El Producto de computación con el id " + id + " ha sido eliminado");
+        res.status(204).send("El Producto de computación con el id " + id + " ha sido eliminado");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error al eliminar el producto");
+      res.status(500).send("Ha ocurrido un error al eliminar el producto");
     })
     .finally(() => {
       client.close();
