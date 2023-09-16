@@ -35,9 +35,30 @@ app.get("/computacion", async (req, res) => {
   res.json(computacion);
 });
 
+// METODO GET PARA OBTENER UN PRODUCTO DE COMPUTACION POR SU ID
 app.get("/computacion/codigo/:id", async (req, res) => {});
 
-app.get("/computacion/nombre/:nombre", async (req, res) => {});
+// METODO GET PARA OBTENER UN PRODUCTO DE COMPUTACION POR SU NOMBRE
+app.get("/computacion/nombre/:nombre", async (req, res) => {
+  const nombreProductoCompu = req.params.nombre;
+  const client = await conectToMongodb();
+  if (!client) {
+    res.status(500).send("Error al conectarse a MongoDB");
+    return;
+  }
+  const regex = new RegExp(nombreProductoCompu.toLowerCase(), "i");
+  const db = client.db("Grupo2");
+  const computacion = await db
+    .collection("computacion")
+    .find({ nombre: regex })
+    .toArray();
+  await disconnectToMongodb();
+  computacion.length == 0
+    ? res
+        .status(404)
+        .send("No se encontró el producto con el nombre " + nombreProductoCompu)
+    : res.json(computacion);
+});
 
 //METODO DE CREACIÓN CON POST
 app.post("/computacion", async (req, res) => {});
@@ -67,8 +88,8 @@ app.delete("/computacion/:id", async (req, res) => {
       if (resultado.deletedCount === 0) {
         res.status(404).send("No se pudo encontrar el producto con id: " + id);
       } else {
-        console.log("Producto Eliminado");
-        res.status(204).send("Producto Eliminado");
+        console.log("Producto con el id " + id + " Eliminado");
+        res.status(204).send("Producto con el id " + id + " Eliminado");
       }
     })
     .catch((err) => {
