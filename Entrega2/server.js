@@ -36,7 +36,18 @@ app.get("/computacion", async (req, res) => {
 });
 
 // METODO GET PARA OBTENER UN PRODUCTO DE COMPUTACION POR SU ID
-app.get("/computacion/codigo/:id", async (req, res) => {});
+app.get("/computacion/codigo/:id", async (req, res) => {
+  const idProducto = parseInt(req.params.id) || 0
+  const client = await conectToMongodb();
+  if (!client) {
+      res.status(500).send('Error al conectarse a MongoDB')
+      return;
+  }
+  const db = client.db('Grupo2')
+  const producto = await db.collection('computacion').findOne({ codigo: idProducto})
+  await disconnectToMongodb()
+  !producto ? res.status(404).send('No se encuentra el producto con id '+ idProducto): res.json(producto)
+});
 
 // METODO GET PARA OBTENER UN PRODUCTO DE COMPUTACION POR SU NOMBRE
 app.get("/computacion/nombre/:nombre", async (req, res) => {
@@ -61,7 +72,25 @@ app.get("/computacion/nombre/:nombre", async (req, res) => {
 });
 
 //METODO DE CREACIÓN CON POST
-app.post("/computacion", async (req, res) => {});
+app.post("/computacion", async (req, res) => {
+  const nuevoProducto = req.body
+    if (nuevoProducto === undefined) {
+        res.status(400).send('Error de formato.')
+    }
+    const client = await conectToMongodb();
+    if (!client) {
+        res.status(500).send('Error al conectarse a MongoDB')
+        return;
+    }
+    const db = client.db('Grupo2') 
+    const collection = await db.collection('computacion').insertOne(nuevoProducto)
+        .then(() => {
+            console.log('Nueva producto creado')
+            res.status(201).send(nuevoProducto)
+        }).catch(err => { 
+            console.error(err)
+        }).finally(() => { client.close()})
+});
 
 //METODO DE ACTUALIZACIÓN CON PUT
 app.put("/computacion/:id", async (req, res) => {});
