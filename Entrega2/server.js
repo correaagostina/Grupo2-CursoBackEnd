@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //LLAMADO DE FUNCIONES
 const { conectToMongodb, disconnectToMongodb } = require("./src/mongodb");
-const { Collection, ObjectId } = require("mongodb");
+const { Collection, ObjectId, CommandSucceededEvent } = require("mongodb");
 
 //MIDDLEWARE
 app.use((req, res, next) => {
@@ -93,7 +93,34 @@ app.post("/computacion", async (req, res) => {
 });
 
 //METODO DE ACTUALIZACIÓN CON PUT
-app.put("/computacion/:id", async (req, res) => {});
+app.put("/computacion/:codigo", async (req, res) => {
+  const codigo = parseInt(req.params.codigo) || 0;
+  const datosNuevos = req.body
+  if (!datosNuevos) {
+    res.status(400).send('Error en el formato recibido.')
+  }
+  const client = await conectToMongodb();
+  if (!client) {
+    res.status(500).send('Error al conectarse a MongoDB')
+    return;
+  }
+  const db = client.db('Grupo2')
+  const collection = await db.collection('computacion').updateOne({codigo:codigo}, {$set: datosNuevos})
+  .then(() => {
+    let mensaje = 'Actualizado ID: ' + codigo
+    res.status(200).json({ description: mensaje, objeto: datosNuevos})
+  })
+  .catch(err => {
+    let mensaje = 'Error al actualizar ID: ' + codigo
+    console.log(err)
+    res.status(500).json({description: mensaje, objeto: datosNuevos})
+  })
+  .finally(() => {
+    client.close()
+  })
+
+});
+
 
 //METODO ELIMINAR CON DELETE
 app.delete("/computacion/:id", async (req, res) => {
