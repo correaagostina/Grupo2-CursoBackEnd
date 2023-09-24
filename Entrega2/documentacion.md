@@ -5,7 +5,7 @@
 En esta API de computación utlizamos **CRUD**, **Express** y **MongoDB** para poder interactuar con recursos almacenados en la bb.dd.
 
 ## URL base
-http://localhost:3300/
+http://localhost:3000/
 
 ## Estructura 
 ```javascript
