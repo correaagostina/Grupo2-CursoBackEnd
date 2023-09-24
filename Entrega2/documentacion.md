@@ -1,5 +1,15 @@
 # API DE COMPUTACIÓN
 
+## Ìndice
+- [Informacion](#información)
+- [URL base](#url-base)
+- [Estructura](#estructura)
+- [Tablas](#tablas)
+- [Metodos](#metodos)
+  - [Metodo POST](#metodo-post)
+  - [Metodo DELETE](#metodo-delete)
+  - [Metodo PUT](#metodo-put)
+  - [Metodo GET](#metodo-get)
 
 ## Información
 En esta API de computación utlizamos **CRUD**, **Express** y **MongoDB** para poder interactuar con recursos almacenados en la bb.dd.
@@ -30,8 +40,9 @@ http://localhost:3000/
 | DELETE|[/computacion/:id](http://localhost:3000/computacion)  | Eliminar un producto 
 
 
+## Metodos
 
-## Metodo POST
+### Metodo POST
  Este metodo crea un nuevo producto en nuestra colección de Computacion.
 
  ```javascript
@@ -58,7 +69,7 @@ http://localhost:3000/
 
 ```
 
-## Metodo DELETE
+### Metodo DELETE
 
 Este metodo elimina un producto de la colección Computacion.
 
@@ -98,4 +109,97 @@ app.delete("/computacion/:id", async (req, res) => {
 });
 ```
 
+### Metodo PUT
+
+Este metodo actualiza un producto existente de la colección Computacion.
+
+```javascript
+app.put("/computacion/:codigo", async (req, res) => {
+  const codigo = parseInt(req.params.codigo) || 0;
+  const datosNuevos = req.body
+  if (!datosNuevos) {
+    res.status(400).send('Error en el formato recibido.')
+  }
+  const client = await conectToMongodb();
+  if (!client) {
+    res.status(500).send('Error al conectarse a MongoDB')
+    return;
+  }
+  const db = client.db('Grupo2')
+  const collection = await db.collection('computacion').updateOne({codigo:codigo}, {$set: datosNuevos})
+  .then(() => {
+    let mensaje = 'Actualizado ID: ' + codigo
+    res.status(200).json({ description: mensaje, objeto: datosNuevos})
+  })
+  .catch(err => {
+    let mensaje = 'Error al actualizar ID: ' + codigo
+    console.log(err)
+    res.status(500).json({description: mensaje, objeto: datosNuevos})
+  })
+  .finally(() => {
+    client.close()
+  })
+
+});
+```
+
+### Metodo GET
+
+1. Este metodo se utiliza para obtener todos los productos. 
+
+```javascript
+app.get("/computacion", async (req, res) => {
+  const client = await conectToMongodb();
+  if (!client) {
+    res.status(500).send("Error al conectarse a MongoDB.");
+    return;
+  }
+  const db = client.db("Grupo2");
+  const computacion = await db.collection("computacion").find().toArray();
+  await disconnectToMongodb();
+  res.json(computacion);
+});
+```
+
+2. Este metodo se utiliza para obtener un producto de computacion por su nombre. 
+
+```javascript
+app.get("/computacion/nombre/:nombre", async (req, res) => {
+  const nombreProductoCompu = req.params.nombre;
+  const client = await conectToMongodb();
+  if (!client) {
+    res.status(500).send("Error al conectarse a MongoDB");
+    return;
+  }
+  const regex = new RegExp(nombreProductoCompu.toLowerCase(), "i");
+  const db = client.db("Grupo2");
+  const computacion = await db
+    .collection("computacion")
+    .find({ nombre: regex })
+    .toArray();
+  await disconnectToMongodb();
+  computacion.length == 0
+    ? res
+        .status(404)
+        .send("No sé ha podido encontrar el producto con nombre " + nombreProductoCompu)
+    : res.json(computacion);
+});
+```
+
+3. Este metodo se utiliza para obtener un producto de computacion por su id. 
+
+```javascript
+app.get("/computacion/codigo/:id", async (req, res) => {
+  const idProducto = parseInt(req.params.id) || 0
+  const client = await conectToMongodb();
+  if (!client) {
+      res.status(500).send('Error al conectarse a MongoDB')
+      return;
+  }
+  const db = client.db('Grupo2')
+  const producto = await db.collection('computacion').findOne({ codigo: idProducto})
+  await disconnectToMongodb()
+  !producto ? res.status(404).send('No se encuentra el producto con id '+ idProducto): res.json(producto)
+});
+```
 
