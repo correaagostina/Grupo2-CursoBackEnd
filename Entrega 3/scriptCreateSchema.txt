@@ -1,0 +1,111 @@
+CREATE SCHEMA IF NOT EXISTS `ingenias` DEFAULT CHARACTER SET utf8 ;
+USE `ingenias` ;
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`Categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`Categoria` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`Genero`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`Genero` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`Pelicula`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`Pelicula` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(45) NOT NULL,
+  `id_categoria` INT NOT NULL,
+  `id_genero` INT NOT NULL,
+  `resumen` VARCHAR(100) NOT NULL,
+  `temporadas` INT NOT NULL,
+  `trailer` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_categoria_idx` (`id_categoria` ASC) VISIBLE,
+  INDEX `fk_genero_idx` (`id_genero` ASC) VISIBLE,
+  CONSTRAINT `fk_categoria`
+    FOREIGN KEY (`id_categoria`)
+    REFERENCES `ingenias`.`Categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_genero`
+    FOREIGN KEY (`id_genero`)
+    REFERENCES `ingenias`.`Genero` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`Tag`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`Tag` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`Actor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`Actor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`PeliculaTag`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`PeliculaTag` (
+  `id_pelicula` INT NOT NULL,
+  `id_tag` INT NOT NULL,
+  PRIMARY KEY (`id_pelicula`, `id_tag`),
+  INDEX `fk_tag_idx` (`id_tag` ASC) VISIBLE,
+  CONSTRAINT `fk_peliculaTag`
+    FOREIGN KEY (`id_pelicula`)
+    REFERENCES `ingenias`.`Pelicula` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tagPelicula`
+    FOREIGN KEY (`id_tag`)
+    REFERENCES `ingenias`.`Tag` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ingenias`.`PeliculaActor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingenias`.`PeliculaActor` (
+  `id_pelicula` INT NOT NULL,
+  `id_actor` INT NOT NULL,
+  PRIMARY KEY (`id_pelicula`, `id_actor`),
+  INDEX `fk_actor_idx` (`id_actor` ASC) VISIBLE,
+  CONSTRAINT `fk_peliculaActor`
+    FOREIGN KEY (`id_pelicula`)
+    REFERENCES `ingenias`.`Pelicula` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_actorPelicula`
+    FOREIGN KEY (`id_actor`)
+    REFERENCES `ingenias`.`Actor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
