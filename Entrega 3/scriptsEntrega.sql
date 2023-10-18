@@ -2,15 +2,15 @@
 #Obtener una lista de películas por género. Realizar una consulta que devuelva todas las películas de un género específico. 
 #Por ejemplo, mostrar todas las películas de género "Acción", "Terror" o "Suspenso".
 
-select p.id as ID, p.titulo as Titulo from ingenias.pelicula p 
+select p.id as ID, p.titulo as Titulo from ingenias.pelicula p
 inner join ingenias.genero g on (p.id_genero = g.id)
 where g.nombre like "Ciencia Ficcion";
 
 #2)
-#Obtener una lista de películas por tags. 
+#Obtener una lista de películas por tags.
 #Realizar una consulta que devuelva todas las películas con los tags "Aventura" y "Ciencia Ficción" o "Aventura" y "Fantasía".
 
-select p.id as ID, p.titulo as Titulo from ingenias.pelicula p 
+select p.id as ID, p.titulo as Titulo from ingenias.pelicula p
 inner join ingenias.peliculatag pt on (p.id = pt.id_pelicula)
 inner join ingenias.tag t on (pt.id_tag = t.id)
 where pt.id_pelicula in (
@@ -24,18 +24,61 @@ where t.nombre like "Ciencia Ficcion")
 #3)
 #Generar un informe donde se visualicen todos los títulos y categorías que en su resumen contengan la palabra "misión"
 
-select p.id as ID, p.titulo as Titulo, c.nombre as Categoria from ingenias.pelicula p 
+select p.id as ID, p.titulo as Titulo, c.nombre as Categoria from ingenias.pelicula p
 inner join ingenias.categoria c on (p.id_categoria = c.id)
 where p.resumen like "%misión%";
 
 
-#4
+#4)
 #Generar un informe donde se visualicen las series con al menos 3 temporadas.
 
-select p.id as ID, p.titulo as Titulo, c.nombre as Categoria, p.temporadas as Temporadas from ingenias.pelicula p 
+select p.id as ID, p.titulo as Titulo, c.nombre as Categoria, p.temporadas as Temporadas from ingenias.pelicula p
 inner join ingenias.categoria c on (p.id_categoria = c.id)
 where c.nombre like "Serie" and p.temporadas >= 3;
 
+#5)
+#Encontrar cuántas películas/series trabajó el actor 'Chris Pratt'.
+
+#6)
+#Informar actrices/actores y sus trabajos fílmicos. Mostrar el nombre completo de actrices/actores,
+#el título de sus trabajos fílmicos, la categoría y el género.
+
+#7)
+#Ver solo la categoría "películas". Mostrar el título en mayúscula, el género (en mayúscula),
+#los tags (separados por coma en la misma columna, usando concat o group_concat), duración y el enlace al trailer.
+
+#8)
+#Ver solo la categoría "series". Mostrar el título en mayúscula, el género (en mayúscula),
+#los tags (separados por coma en la misma columna, usando concat o group_concat), la cantidad de temporadas, el enlace al trailer y el resumen.
+
+
+#9)
+#Identificar la película/serie con más actores y la que posee menos actores (indicar la cantidad de actores en ambos casos).
+
+#10)
+#Contar la cantidad total de películas registradas.
+
+#11)
+#Contar la cantidad total de series registradas.
+
+#12)
+#Obtener una lista de series en orden descendente basado en la cantidad de temporadas.
+
+#13)
+#Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date
+#y realizar la actualización con las fechas de películas/series del género "Aventura".
+
+#14)
+#Buscar películas por palabra clave. Realizar una consulta que permita a los usuarios
+#buscar películas utilizando palabras clave en el título o la descripción
+#(por ejemplo, palabras clave como "Aventura", "madre" o "Ambientada").
+
+#15)
+#Sumar la tabla "Ranking" que incluye el ID de la película/serie, calificación y comentarios.
+#Utilizar operaciones SQL como joins, unions, concat, count, group by, etc.
+
+#Nota: Asegúrate de ajustar las consultas según el diseño específico de tu base de datos
+#y los nombres de tablas y campos que hayas definido.
 
 
 
