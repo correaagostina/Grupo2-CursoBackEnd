@@ -43,23 +43,24 @@ SELECT COUNT(pa.id_pelicula) as Cantidad
 FROM ingenias.peliculaactor pa
 inner join ingenias.actor a on (pa.id_actor = a.id)
 where a.nombre_apellido = "Chris Pratt";
+
 #6
 #Informar actrices/actores y sus trabajos fílmicos. Mostrar el nombre completo de actrices/actores, el título de sus trabajos fílmicos, la categoría y el género.
 SELECT a.nombre_apellido as Actor, p.titulo as Titulo, c.nombre as Categoria, g.nombre as Genero
 FROM ingenias.pelicula p 
-inner join peliculaactor pa on (p.id = pa.id_pelicula)
-inner join actor a on (pa.id_actor = a.id)
-inner join categoria c on (p.id_categoria = c.id)
-inner join genero g on (p.id_genero = g.id);
+inner join ingenias.peliculaactor pa on (p.id = pa.id_pelicula)
+inner join ingenias.actor a on (pa.id_actor = a.id)
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+inner join ingenias.genero g on (p.id_genero = g.id);
 
 #7
 #Ver solo la categoría "películas". Mostrar el título en mayúscula, el género (en mayúscula), los tags (separados por coma en la misma columna, usando concat o group_concat), duración y el enlace al trailer.
 SELECT UPPER(p.titulo) as Titulo, UPPER(g.nombre) as Genero, GROUP_CONCAT(t.nombre) as Tags, p.duracion as Duracion, p.trailer as Trailer
 FROM ingenias.pelicula p 
-inner join genero g on (p.id_genero = g.id)
-inner join peliculatag pt on (p.id = pt.id_pelicula)
-inner join tag t on (pt.id_tag = t.id)
-inner join categoria c on (p.id_categoria = c.id)
+inner join ingenias.genero g on (p.id_genero = g.id)
+inner join ingenias.peliculatag pt on (p.id = pt.id_pelicula)
+inner join ingenias.tag t on (pt.id_tag = t.id)
+inner join ingenias.categoria c on (p.id_categoria = c.id)
 WHERE c.nombre = "Película"
 GROUP BY p.id;
 
