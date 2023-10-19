@@ -1,4 +1,4 @@
-#1)
+#1
 #Obtener una lista de películas por género. Realizar una consulta que devuelva todas las películas de un género específico. 
 #Por ejemplo, mostrar todas las películas de género "Acción", "Terror" o "Suspenso".
 
@@ -6,7 +6,7 @@ select p.id as ID, p.titulo as Titulo from ingenias.pelicula p
 inner join ingenias.genero g on (p.id_genero = g.id)
 where g.nombre like "Ciencia Ficcion";
 
-#2)
+#2
 #Obtener una lista de películas por tags. 
 #Realizar una consulta que devuelva todas las películas con los tags "Aventura" y "Ciencia Ficción" o "Aventura" y "Fantasía".
 
@@ -21,7 +21,7 @@ select pt.id_pelicula from ingenias.Tag
 inner join ingenias.peliculatag pt on (t.id = pt.id_tag)
 where t.nombre like "Ciencia Ficcion")
 
-#3)
+#3
 #Generar un informe donde se visualicen todos los títulos y categorías que en su resumen contengan la palabra "misión"
 
 select p.id as ID, p.titulo as Titulo, c.nombre as Categoria from ingenias.pelicula p 
@@ -43,6 +43,7 @@ SELECT COUNT(pa.id_pelicula) as Cantidad
 FROM ingenias.peliculaactor pa
 inner join ingenias.actor a on (pa.id_actor = a.id)
 where a.nombre_apellido = "Chris Pratt";
+
 #6
 #Informar actrices/actores y sus trabajos fílmicos. Mostrar el nombre completo de actrices/actores, el título de sus trabajos fílmicos, la categoría y el género.
 SELECT a.nombre_apellido as Actor, p.titulo as Titulo, c.nombre as Categoria, g.nombre as Genero
@@ -63,6 +64,26 @@ inner join categoria c on (p.id_categoria = c.id)
 WHERE c.nombre = "Película"
 GROUP BY p.id;
 
+#10
+#Contar la cantidad total de películas registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'pelicula';
 
 
+#11
+#Contar la cantidad total de series registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie';
 
+
+#12
+#Obtener una lista de series en orden descendente basado en la cantidad de temporadas.
+SELECT titulo as Series, temporadas as Temporada FROM ingenias.pelicula p 
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie'
+order by temporadas desc;
+
+#13
+#Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date y realizar la actualización con las fechas de películas/series del género "Aventura".
