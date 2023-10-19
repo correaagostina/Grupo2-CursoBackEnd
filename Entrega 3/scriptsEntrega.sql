@@ -1,4 +1,4 @@
-#1)
+#1
 #Obtener una lista de películas por género. Realizar una consulta que devuelva todas las películas de un género específico. 
 #Por ejemplo, mostrar todas las películas de género "Acción", "Terror" o "Suspenso".
 
@@ -6,7 +6,7 @@ select p.id as ID, p.titulo as Titulo from ingenias.pelicula p
 inner join ingenias.genero g on (p.id_genero = g.id)
 where g.nombre like "Ciencia Ficcion";
 
-#2)
+#2
 #Obtener una lista de películas por tags. 
 #Realizar una consulta que devuelva todas las películas con los tags "Aventura" y "Ciencia Ficción" o "Aventura" y "Fantasía".
 
@@ -21,7 +21,7 @@ select pt.id_pelicula from ingenias.Tag
 inner join ingenias.peliculatag pt on (t.id = pt.id_tag)
 where t.nombre like "Ciencia Ficcion")
 
-#3)
+#3
 #Generar un informe donde se visualicen todos los títulos y categorías que en su resumen contengan la palabra "misión"
 
 select p.id as ID, p.titulo as Titulo, c.nombre as Categoria from ingenias.pelicula p 
@@ -90,6 +90,18 @@ FROM (
     limit 1
 ) res
 join ingenias.pelicula p on (res.id = p.id);
+
+#13
+#Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date y realizar la actualización con las fechas de películas/series del género "Aventura".
+
+alter table ingenias.pelicula
+add fechaLanzamiento date;
+
+UPDATE ingenias.pelicula p
+SET
+p.fechaLanzamiento = DATE_FORMAT(NOW(),'%Y%m%d')
+WHERE p.id_genero in (select g.id from ingenias.genero g
+					where g.nombre like "Aventura");
 
 #14
 #Buscar películas por palabra clave. 
