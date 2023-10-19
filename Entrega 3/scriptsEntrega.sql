@@ -54,7 +54,8 @@ inner join ingenias.categoria c on (p.id_categoria = c.id)
 inner join ingenias.genero g on (p.id_genero = g.id);
 
 #7
-#Ver solo la categoría "películas". Mostrar el título en mayúscula, el género (en mayúscula), los tags (separados por coma en la misma columna, usando concat o group_concat), duración y el enlace al trailer.
+#Ver solo la categoría "películas". 
+#Mostrar el título en mayúscula, el género (en mayúscula), los tags (separados por coma en la misma columna, usando concat o group_concat), duración y el enlace al trailer.
 SELECT UPPER(p.titulo) as Titulo, UPPER(g.nombre) as Genero, GROUP_CONCAT(t.nombre) as Tags, p.duracion as Duracion, p.trailer as Trailer
 FROM ingenias.pelicula p 
 inner join ingenias.genero g on (p.id_genero = g.id)
@@ -63,6 +64,32 @@ inner join ingenias.tag t on (pt.id_tag = t.id)
 inner join ingenias.categoria c on (p.id_categoria = c.id)
 WHERE c.nombre = "Película"
 GROUP BY p.id;
+
+#8
+#Ver solo la categoría "series". 
+#Mostrar el título en mayúscula, el género (en mayúscula), los tags (separados por coma en la misma columna, usando concat o group_concat), la cantidad de temporadas, el enlace al trailer y el resumen.
+
+SELECT UPPER(p.titulo) as Titulo, UPPER(g.nombre) as Genero, GROUP_CONCAT(t.nombre) as Tags, p.temporadas as Temporadas, p.trailer as Trailer, p.resumen as Resumen
+FROM ingenias.pelicula p 
+inner join ingenias.genero g on (p.id_genero = g.id)
+inner join ingenias.peliculatag pt on (p.id = pt.id_pelicula)
+inner join ingenias.tag t on (pt.id_tag = t.id)
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+WHERE c.nombre = "Serie"
+GROUP BY p.id;
+
+#9
+#Identificar la película/serie con más actores y la que posee menos actores (indicar la cantidad de actores en ambos casos).
+
+SELECT res.cantidad AS Maximo, p.titulo as Titulo
+FROM (
+    select COUNT(*) as cantidad, pa.id_pelicula as id
+    from ingenias.peliculaactor pa
+    group by (pa.id_pelicula)
+    order by cantidad desc
+    limit 1
+) res
+join ingenias.pelicula p on (res.id = p.id);
 
 #14
 #Buscar películas por palabra clave. 
