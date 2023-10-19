@@ -64,6 +64,69 @@ inner join ingenias.categoria c on (p.id_categoria = c.id)
 WHERE c.nombre = "Película"
 GROUP BY p.id;
 
+#14
+#Buscar películas por palabra clave. 
+#Realizar una consulta que permita a los usuarios buscar películas utilizando palabras clave en el título o la descripción (por ejemplo, palabras clave como "Aventura", "madre" o "Ambientada").
+
+select p.titulo as Titulo, p.resumen from pelicula p
+inner join categoria c on(p.id_categoria = c.id)
+where c.nombre like "Pelicula" and ((p.resumen like "%aventura%") or (p.resumen like "%madre%") or (p.resumen like "%Ambientada%"));
+
+#15
+#Sumar la tabla "Ranking" que incluye el ID de la película/serie, calificación y comentarios. Utilizar operaciones SQL como joins, unions, concat, count, group by, etc.
+
+CREATE TABLE ingenias.ranking (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `id_pelicula` INT NOT NULL,
+  `calificacion` INT NULL,
+  `comentarios` VARCHAR(45) NULL,
+  CONSTRAINT `fk_id_pelicula`
+    FOREIGN KEY (`id_pelicula`)
+    REFERENCES `ingenias`.`pelicula` (`id`)
+);
+
+insert into ingenias.ranking (id_pelicula, calificacion, comentarios)
+values (3, 10, "Excelente");
+
+insert into ingenias.ranking (id_pelicula, calificacion, comentarios)
+values (3, 7, "Buena");
+
+insert into ingenias.ranking (id_pelicula, calificacion, comentarios)
+values (6, 10, "Excelente");
+
+insert into ingenias.ranking (id_pelicula, calificacion, comentarios)
+values (6, 4, "Regular");
+
+insert into ingenias.ranking (id_pelicula, calificacion, comentarios)
+values (10, 2, "Mala");
+
+
+## Muestra los comentarios por pelicula/serie    
+select p.titulo as Titulo, group_concat(r.comentarios) as Comentarios from ingenias.pelicula p
+inner join ingenias.ranking r on (p.id = r.id_pelicula)
+group by (p.id);
+
+##Cuenta cantidas de comentarios por pelicula/serie
+select p.titulo as Titulo, count(*) from ingenias.pelicula p
+inner join ingenias.ranking r on (p.id = r.id_pelicula)
+group by (p.id);
+
+##Muestra peliculas/series que tienen calificacion menor a 5 e igual a 10
+select p.titulo as Titulo, r.calificacion as Calificacion from ingenias.pelicula p
+inner join ingenias.ranking r on (p.id = r.id_pelicula)
+where r.calificacion <5
+union
+select p.titulo as Titulo, r.calificacion as Calificacion from ingenias.pelicula p
+inner join ingenias.ranking r on (p.id = r.id_pelicula)
+where r.calificacion =10;
+
+##Muestra series sin calificacion
+select p.id, p.titulo as Titulo from ingenias.pelicula p
+where p.id not in (select pel.id from ingenias.pelicula pel
+inner join ingenias.ranking r on (p.id = r.id_pelicula));
+
+
+
 
 
 

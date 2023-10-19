@@ -31,7 +31,7 @@ CREATE TABLE `pelicula` (
   `titulo` varchar(45) NOT NULL,
   `id_categoria` int DEFAULT NULL,
   `id_genero` int DEFAULT NULL,
-  `resumen` varchar(500) DEFAULT NULL,
+  `resumen` varchar(800) DEFAULT NULL,
   `temporadas` int DEFAULT NULL,
   `trailer` varchar(45) DEFAULT NULL,
   `duracion` int DEFAULT NULL,
