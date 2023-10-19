@@ -65,7 +65,6 @@ inner join ingenias.categoria c on (p.id_categoria = c.id)
 WHERE c.nombre = "Película"
 GROUP BY p.id;
 
-<<<<<<< HEAD
 #8
 #Ver solo la categoría "series". 
 #Mostrar el título en mayúscula, el género (en mayúscula), los tags (separados por coma en la misma columna, usando concat o group_concat), la cantidad de temporadas, el enlace al trailer y el resumen.
@@ -91,6 +90,27 @@ FROM (
     limit 1
 ) res
 join ingenias.pelicula p on (res.id = p.id);
+
+#10
+#Contar la cantidad total de películas registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'pelicula';
+
+
+#11
+#Contar la cantidad total de series registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie';
+
+
+#12
+#Obtener una lista de series en orden descendente basado en la cantidad de temporadas.
+SELECT titulo as Series, temporadas as Temporada FROM ingenias.pelicula p 
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie'
+order by temporadas desc;
 
 #13
 #Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date y realizar la actualización con las fechas de películas/series del género "Aventura".
@@ -167,28 +187,4 @@ inner join ingenias.ranking r on (p.id = r.id_pelicula));
 
 
 
-=======
-#10
-#Contar la cantidad total de películas registradas.
-select count(p.id_categoria) from ingenias.pelicula p
-inner join ingenias.categoria c on (p.id_categoria = c.id)
-where nombre = 'pelicula';
->>>>>>> micaela_marfil
 
-
-#11
-#Contar la cantidad total de series registradas.
-select count(p.id_categoria) from ingenias.pelicula p
-inner join ingenias.categoria c on (p.id_categoria = c.id)
-where nombre = 'Serie';
-
-
-#12
-#Obtener una lista de series en orden descendente basado en la cantidad de temporadas.
-SELECT titulo as Series, temporadas as Temporada FROM ingenias.pelicula p 
-inner join ingenias.categoria c on (p.id_categoria = c.id)
-where nombre = 'Serie'
-order by temporadas desc;
-
-#13
-#Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date y realizar la actualización con las fechas de películas/series del género "Aventura".
