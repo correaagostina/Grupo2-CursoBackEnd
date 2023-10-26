@@ -18,16 +18,19 @@ El proyecto es una base de datos que contiene información sobre: Peliculas y Se
 El diagrama muestra las conexiones que hay entre las diferentes tablas que se usaron para el proyecto.
 
 <li>
-  La tabla pelicula esta conectada a las tablas peliculatag y peliculaactor.
+  La tabla pelicula tiene una relacion Many-to-Many con las tablas peliculatag y peliculaactor.
 </li>
 <li>
-  La tabla categoria esta conectada a la tabla pelicula.
+  La tabla categoria tiene una relacion One-to-One con la tabla pelicula.
 </li>
 <li>
-  La tabla genero esta conectada a las tablas pelicula, tag y actor.
+  La tabla genero tiene una relacion One-to-One con la tabla pelicula.
 </li>
 <li>
-  La tabla actor esta conectada a las tablas peliculatag y peliculaactor.
+  La tabla actor tiene una relacion Many-to-One con la tabla peliculas.
+</li>
+<li>
+  Las tablas peliculatag y peliculaactor tienen una relacion Many-to-Many con las tablas tag y actor respectivamente.
 </li>
 
 
