@@ -4,7 +4,7 @@
 
 select p.id as ID, p.titulo as Titulo from ingenias.pelicula p 
 inner join ingenias.genero g on (p.id_genero = g.id)
-where g.nombre like "Ciencia Ficcion";
+where (g.nombre like "Ciencia Ficcion") or (g.nombre like "Terror") or (g.nombre like "Suspenso");
 
 #2
 #Obtener una lista de películas por tags. 
