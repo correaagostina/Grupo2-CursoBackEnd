@@ -15,7 +15,7 @@ El proyecto es una base de datos que contiene información sobre: Peliculas y Se
 ![diagrama](https://github.com/correaagostina/Grupo2-CursoBackEnd/assets/117048842/3935f6ef-54c9-4e8a-be3d-7c882524b3d5)
 
 
-El diagrama muestra las conexiones que hay entre las diferentes tablas que se usaron para el proyecto.
+El diagrama muestra las relaciones que hay entre las diferentes tablas que se usaron para el proyecto.
 
 <li>
   La tabla pelicula tiene una relacion Many-to-Many con las tablas peliculatag y peliculaactor.
@@ -27,10 +27,10 @@ El diagrama muestra las conexiones que hay entre las diferentes tablas que se us
   La tabla genero tiene una relacion One-to-One con la tabla pelicula.
 </li>
 <li>
-  La tabla actor tiene una relacion Many-to-One con la tabla peliculas.
+  La tabla actor tiene una relacion Many-to-Many con la tabla peliculaactor.
 </li>
 <li>
-  Las tablas peliculatag y peliculaactor tienen una relacion Many-to-Many con las tablas tag y actor respectivamente.
+  La tabla tag tiene una relacion Many-to-Many con la tabla peliculatag.
 </li>
 
 
