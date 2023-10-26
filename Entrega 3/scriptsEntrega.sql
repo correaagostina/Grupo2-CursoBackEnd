@@ -91,6 +91,27 @@ FROM (
 ) res
 join ingenias.pelicula p on (res.id = p.id);
 
+#10
+#Contar la cantidad total de películas registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'pelicula';
+
+
+#11
+#Contar la cantidad total de series registradas.
+select count(p.id_categoria) from ingenias.pelicula p
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie';
+
+
+#12
+#Obtener una lista de series en orden descendente basado en la cantidad de temporadas.
+SELECT titulo as Series, temporadas as Temporada FROM ingenias.pelicula p 
+inner join ingenias.categoria c on (p.id_categoria = c.id)
+where nombre = 'Serie'
+order by temporadas desc;
+
 #13
 #Agregar el campo "Fecha de lanzamiento" a la tabla de trabajos fílmicos como tipo Date y realizar la actualización con las fechas de películas/series del género "Aventura".
 
@@ -163,8 +184,6 @@ where r.calificacion =10;
 select p.id, p.titulo as Titulo from ingenias.pelicula p
 where p.id not in (select pel.id from ingenias.pelicula pel
 inner join ingenias.ranking r on (p.id = r.id_pelicula));
-
-
 
 
 
